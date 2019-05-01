@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { parse } from 'query-string';
 import { Subscribe } from 'unstated';
-import { UserContainer } from '../../stores/user';
+import { UserContainer } from '../../../stores/user';
 
 export interface CallbackProps extends RouteComponentProps {}
 

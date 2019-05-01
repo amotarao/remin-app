@@ -1,9 +1,9 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Subscribe } from 'unstated';
-import { UserContainer } from '../../stores/user';
-import logo from '../../logo.svg';
-import '../../App.css';
+import { UserContainer } from '../../../stores/user';
+import logo from '../../../logo.svg';
+import '../../../App.css';
 
 export interface TopProps extends RouteComponentProps {}
 
