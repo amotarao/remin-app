@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useState, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   Paper,
   Table,
@@ -20,34 +20,37 @@ export interface RemindersListProps {
 export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
   const [selected, setSelected] = useState<string[]>([]);
 
-  const onCheckAllChange = () => {
+  const onCheckAllChange = useCallback(() => {
     if (selected.length < items.length) {
       setSelected(items.map(e => e.id));
       return;
     }
     setSelected([]);
-  };
+  }, [items, selected]);
 
-  const onCheckChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const currentId = event.currentTarget.value;
+  const onCheckChange = useCallback(
+    (event: React.FormEvent<HTMLInputElement>) => {
+      const currentId = event.currentTarget.value;
 
-    if (selected.findIndex(id => id === currentId) < 0) {
-      setSelected([...selected, currentId]);
-      return;
-    }
-    setSelected(selected.filter(id => id !== currentId));
-  };
+      if (selected.findIndex(id => id === currentId) < 0) {
+        setSelected([...selected, currentId]);
+        return;
+      }
+      setSelected(selected.filter(id => id !== currentId));
+    },
+    [selected]
+  );
 
-  const onRowClick = (
-    event: React.MouseEvent<HTMLTableRowElement>,
-    currentId: string
-  ) => {
-    if (selected.findIndex(id => id === currentId) < 0) {
-      setSelected([...selected, currentId]);
-      return;
-    }
-    setSelected(selected.filter(id => id !== currentId));
-  };
+  const onRowClick = useCallback(
+    (event: React.MouseEvent<HTMLTableRowElement>, currentId: string) => {
+      if (selected.findIndex(id => id === currentId) < 0) {
+        setSelected([...selected, currentId]);
+        return;
+      }
+      setSelected(selected.filter(id => id !== currentId));
+    },
+    [selected]
+  );
 
   const head = useMemo(
     () => (
@@ -68,7 +71,7 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
         <TableCell>Time</TableCell>
       </TableRow>
     ),
-    [items, selected.length === items.length, selected.length === 0]
+    [items, selected, onCheckAllChange]
   );
 
   const body = useMemo(
@@ -88,7 +91,7 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
           <TableCell>{item.data.time.join(', ')}</TableCell>
         </TableRow>
       )),
-    [items, selected]
+    [items, selected, onCheckChange, onRowClick]
   );
 
   return (
