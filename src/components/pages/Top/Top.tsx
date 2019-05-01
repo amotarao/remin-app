@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../../logo.svg';
 import { slackScopes } from '../../../utils/slack';
 
 export interface TopProps {
@@ -26,13 +25,9 @@ export const Top: React.FC<TopProps> = ({ isLoading, signedIn, signOut }) => {
             srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
           />
         </a>
-        <img src={logo} alt="logo" />
         <p>{isLoading ? '読み込み中' : '読み込み完了'}</p>
         <p>{signedIn ? 'ログイン済' : 'ログインしていません'}</p>
         <button onClick={signOut}>ログアウト</button>
-        <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
       </header>
     </div>
   );
