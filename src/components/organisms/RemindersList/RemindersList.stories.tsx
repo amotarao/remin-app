@@ -1,9 +1,14 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { RemindersList, RemindersListProps } from './RemindersList';
 
-const stories = storiesOf('organisms', module).addDecorator(withKnobs);
+const stories = storiesOf('organisms', module);
+stories.addDecorator(story => (
+  <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
+));
+stories.addDecorator(withKnobs);
 
 stories.add('RemindersList', () => {
   const props: RemindersListProps = {
