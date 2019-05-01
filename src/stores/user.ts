@@ -39,4 +39,6 @@ export class UserContainer extends Container<UserState> {
   };
 
   signIn = async (token: string) => await auth.signInWithCustomToken(token);
+
+  signOut = async () => await auth.signOut();
 }

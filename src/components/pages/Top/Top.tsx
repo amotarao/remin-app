@@ -16,6 +16,7 @@ const Top: React.FC<TopProps> = () => {
             <img src={logo} className="App-logo" alt="logo" />
             <p>{user.state.isLoading ? '読み込み中' : '読み込み完了'}</p>
             <p>{user.state.signedIn ? 'ログイン済' : 'ログインしていません'}</p>
+            <button onClick={user.signOut}>ログアウト</button>
             <a
               className="App-link"
               href="https://reactjs.org"
