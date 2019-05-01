@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React, { useState, useMemo } from 'react';
 import {
   Paper,
@@ -8,6 +10,7 @@ import {
   TableBody,
   Checkbox,
 } from '@material-ui/core';
+import { PaperStyle } from './styled';
 
 export interface RemindersListProps {
   items: ReminderItem[];
@@ -86,7 +89,7 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
   );
 
   return (
-    <Paper>
+    <Paper css={PaperStyle}>
       <Table>
         <TableHead>{head}</TableHead>
         <TableBody>{body}</TableBody>
