@@ -10,20 +10,11 @@ import {
   TableBody,
   Checkbox,
 } from '@material-ui/core';
+import { ReminderItem } from '../../../stores/database/reminders';
 import { PaperStyle } from './styled';
 
 export interface RemindersListProps {
   items: ReminderItem[];
-}
-
-interface ReminderItem {
-  id: string;
-  data: {
-    channel: string;
-    text: string;
-    date: string[];
-    time: string[];
-  };
 }
 
 export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
