@@ -14,6 +14,7 @@ const Top: React.FC<TopProps> = () => {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
+            <p>{user.state.isLoading ? '読み込み中' : '読み込み完了'}</p>
             <p>{user.state.signedIn ? 'ログイン済' : 'ログインしていません'}</p>
             <a
               className="App-link"

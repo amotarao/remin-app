@@ -2,6 +2,7 @@ import { Container } from 'unstated';
 import { auth } from '../modules/firebase';
 
 export interface UserState {
+  isLoading: boolean;
   signedIn: boolean;
   user: firebase.User | null;
 }
@@ -10,6 +11,7 @@ export class UserContainer extends Container<UserState> {
   constructor() {
     super();
     this.state = {
+      isLoading: true,
       signedIn: false,
       user: null,
     };
@@ -19,9 +21,19 @@ export class UserContainer extends Container<UserState> {
   onAuthStateChanged = () => {
     auth.onAuthStateChanged(user => {
       if (user) {
-        this.setState({ ...this.state, signedIn: true, user });
+        this.setState({
+          ...this.state,
+          isLoading: false,
+          signedIn: true,
+          user,
+        });
       } else {
-        this.setState({ ...this.state, signedIn: false, user: null });
+        this.setState({
+          ...this.state,
+          isLoading: false,
+          signedIn: false,
+          user: null,
+        });
       }
     });
   };
