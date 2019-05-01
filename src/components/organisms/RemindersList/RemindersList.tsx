@@ -57,7 +57,8 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
             indeterminate={
               selected.length > 0 && selected.length !== items.length
             }
-            checked={selected.length === items.length}
+            checked={items.length > 0 && selected.length === items.length}
+            disabled={items.length === 0}
             onChange={onCheckAllChange}
           />
         </TableCell>
@@ -67,7 +68,7 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
         <TableCell>Time</TableCell>
       </TableRow>
     ),
-    [selected.length === items.length, selected.length === 0]
+    [items, selected.length === items.length, selected.length === 0]
   );
 
   const body = useMemo(
@@ -87,7 +88,7 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
           <TableCell>{item.data.time.join(', ')}</TableCell>
         </TableRow>
       )),
-    [selected]
+    [items, selected]
   );
 
   return (
