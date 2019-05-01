@@ -47,6 +47,17 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
     setSelected(selected.filter(id => id !== currentId));
   };
 
+  const onRowClick = (
+    event: React.MouseEvent<HTMLTableRowElement>,
+    currentId: string
+  ) => {
+    if (selected.findIndex(id => id === currentId) < 0) {
+      setSelected([...selected, currentId]);
+      return;
+    }
+    setSelected(selected.filter(id => id !== currentId));
+  };
+
   const head = useMemo(
     () => (
       <TableRow>
@@ -71,7 +82,7 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
   const body = useMemo(
     () =>
       items.map(item => (
-        <TableRow key={item.id}>
+        <TableRow key={item.id} onClick={event => onRowClick(event, item.id)}>
           <TableCell padding="checkbox">
             <Checkbox
               value={item.id}
