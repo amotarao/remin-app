@@ -9,7 +9,10 @@ import {
   TableCell,
   TableBody,
   Checkbox,
+  Icon,
+  IconButton,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { ReminderItem } from '../../../stores/database/reminders';
 import { PaperStyle } from './styled';
 
@@ -69,6 +72,9 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
         <TableCell>Text</TableCell>
         <TableCell>Date</TableCell>
         <TableCell>Time</TableCell>
+        <TableCell padding="checkbox" align="center">
+          Edit
+        </TableCell>
       </TableRow>
     ),
     [items, selected, onCheckAllChange]
@@ -89,6 +95,21 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
           <TableCell>{item.data.text}</TableCell>
           <TableCell>{item.data.date.join(', ')}</TableCell>
           <TableCell>{item.data.time.join(', ')}</TableCell>
+          <TableCell padding="checkbox" align="center">
+            <IconButton
+              component={props => (
+                <Link
+                  to={{ pathname: `/edit/${item.id}`, state: { modal: true } }}
+                  {...props}
+                />
+              )}
+              onClick={event => {
+                event.stopPropagation();
+              }}
+            >
+              <Icon>edit</Icon>
+            </IconButton>
+          </TableCell>
         </TableRow>
       )),
     [items, selected, onCheckChange, onRowClick]
