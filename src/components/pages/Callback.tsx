@@ -1,7 +1,8 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { parse } from 'query-string';
-import { signIn } from '../../stores/user';
+import { Subscribe } from 'unstated';
+import { UserContainer } from '../../stores/user';
 
 export interface CallbackProps extends RouteComponentProps {}
 
@@ -13,11 +14,17 @@ const Callback: React.FC<CallbackProps> = ({ location, history }) => {
   }
 
   const { token } = parse(location.search) as { token: string };
-  signIn(token).finally(() => {
-    toTop();
-  });
 
-  return <p>ログイン中</p>;
+  return (
+    <Subscribe to={[UserContainer]}>
+      {(user: UserContainer) => {
+        user.signIn(token).finally(() => {
+          toTop();
+        });
+        return <p>ログイン中</p>;
+      }}
+    </Subscribe>
+  );
 };
 
 const CallbackWithRouter = withRouter(Callback);

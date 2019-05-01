@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'unstated';
 import { Callback } from './components/pages/Callback';
 import logo from './logo.svg';
 import './App.css';
@@ -24,10 +25,12 @@ const Index: React.FC = () => (
 );
 
 const App: React.FC = () => (
-  <Router>
-    <Route path="/" exact component={Index} />
-    <Route path="/callback" component={Callback} />
-  </Router>
+  <Provider>
+    <Router>
+      <Route path="/" exact component={Index} />
+      <Route path="/callback" component={Callback} />
+    </Router>
+  </Provider>
 );
 
 export default App;
