@@ -5,9 +5,9 @@ import { Subscribe } from 'unstated';
 import { UserContainer } from '../../../stores/user';
 import { Callback, CallbackProps } from './';
 
-interface Props extends RouteComponentProps, CallbackProps {}
+interface Props extends RouteComponentProps, Partial<CallbackProps> {}
 
-const CallbackContainer: React.FC<Props> = ({ location, history }) => {
+const CallbackContainer: React.FC<Props> = ({ location, history, ...props }) => {
   const toTop = () => history.replace('/');
 
   if (!location || !location.search) {
@@ -22,7 +22,7 @@ const CallbackContainer: React.FC<Props> = ({ location, history }) => {
         user.signIn(token).finally(() => {
           toTop();
         });
-        return <Callback />;
+        return <Callback {...props} />;
       }}
     </Subscribe>
   );

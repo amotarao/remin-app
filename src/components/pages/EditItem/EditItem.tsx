@@ -1,7 +1,9 @@
 import React from 'react';
 
-export interface EditItemProps {}
+export interface EditItemProps {
+  className?: string;
+}
 
-export const EditItem: React.FC<EditItemProps> = () => {
-  return <p>EditItem</p>;
+export const EditItem: React.FC<EditItemProps> = ({ className }) => {
+  return <p className={className}>EditItem</p>;
 };

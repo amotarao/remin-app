@@ -4,16 +4,16 @@ import { Subscribe } from 'unstated';
 import { UserContainer } from '../../../stores/user';
 import { Top, TopProps } from './';
 
-interface Props extends RouteComponentProps, TopProps {}
+interface Props extends RouteComponentProps, Partial<TopProps> {}
 
-const TopContainer: React.FC<Props> = ({ history }) => {
+const TopContainer: React.FC<Props> = ({ history, ...props }) => {
   return (
     <Subscribe to={[UserContainer]}>
       {(user: UserContainer) => {
         if (!user.state.isLoading && user.state.signedIn) {
           history.replace('/dashboard');
         }
-        return <Top {...{ ...user.state, signOut: user.signOut }} />;
+        return <Top {...props} {...user.state} {...user} />;
       }}
     </Subscribe>
   );

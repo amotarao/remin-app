@@ -6,12 +6,13 @@ import { LoadingCircle } from '../../atoms/LoadingCircle';
 import { HeaderStyle, TitleStyle, CatchStyle } from './styled';
 
 export interface TopProps {
+  className?: string;
   isLoading: boolean;
 }
 
-export const Top: React.FC<TopProps> = ({ isLoading }) => {
+export const Top: React.FC<TopProps> = ({ className, isLoading }) => {
   return (
-    <div>
+    <div className={className}>
       <LoadingCircle isLoading={isLoading} />
       <header css={HeaderStyle}>
         <h1 css={TitleStyle}>Remin</h1>

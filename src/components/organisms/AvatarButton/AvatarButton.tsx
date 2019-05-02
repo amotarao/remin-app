@@ -5,6 +5,7 @@ import { Avatar, IconButton, Popper, Grow, Paper, ClickAwayListener, MenuList, M
 import { ButtonStyle } from './styled';
 
 export interface AvatarButtonProps {
+  className?: string;
   signedIn: boolean;
   user: {
     displayName: string | null;
@@ -15,7 +16,7 @@ export interface AvatarButtonProps {
   signOut: () => void;
 }
 
-export const AvatarButton: React.FC<AvatarButtonProps> = ({ signedIn, user, signOut }) => {
+export const AvatarButton: React.FC<AvatarButtonProps> = ({ className, signedIn, user, signOut }) => {
   const [open, setOpen] = useState(false);
   const anchorEl = useRef<HTMLElement>(null);
   const menuId = 'menu-list-grow';
@@ -33,7 +34,14 @@ export const AvatarButton: React.FC<AvatarButtonProps> = ({ signedIn, user, sign
 
   return (
     <React.Fragment>
-      <IconButton css={ButtonStyle} buttonRef={anchorEl} aria-owns={open ? menuId : undefined} aria-haspopup="true" onClick={handleToggle}>
+      <IconButton
+        className={className}
+        css={ButtonStyle}
+        buttonRef={anchorEl}
+        aria-owns={open ? menuId : undefined}
+        aria-haspopup="true"
+        onClick={handleToggle}
+      >
         {(() => {
           if (!signedIn || !user) return <Avatar>?</Avatar>;
           if (user.photoURL) return <Avatar src={user.photoURL} alt={user.displayName || ''} />;
