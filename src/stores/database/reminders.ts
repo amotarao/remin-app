@@ -31,7 +31,7 @@ export class RemindersContainer extends Container<RemindersState> {
   }
 
   onSnapshot = () => {
-    RemindersCollection.onSnapshot(querySnapshot => {
+    RemindersCollection.onSnapshot((querySnapshot) => {
       this.setState({
         ...this.state,
         isLoading: true,
@@ -42,7 +42,7 @@ export class RemindersContainer extends Container<RemindersState> {
           id: doc.id,
           data: doc.data() as ReminderItemData,
         };
-        const index = this.state.items.findIndex(e => e.id === item.id);
+        const index = this.state.items.findIndex((e) => e.id === item.id);
 
         switch (type) {
           case 'added':

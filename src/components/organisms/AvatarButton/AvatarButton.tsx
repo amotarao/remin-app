@@ -1,14 +1,5 @@
 import React, { useRef, useState } from 'react';
-import {
-  Avatar,
-  IconButton,
-  Popper,
-  Grow,
-  Paper,
-  ClickAwayListener,
-  MenuList,
-  MenuItem,
-} from '@material-ui/core';
+import { Avatar, IconButton, Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core';
 
 export interface AvatarButtonProps {
   signedIn: boolean;
@@ -21,11 +12,7 @@ export interface AvatarButtonProps {
   signOut: () => void;
 }
 
-export const AvatarButton: React.FC<AvatarButtonProps> = ({
-  signedIn,
-  user,
-  signOut,
-}) => {
+export const AvatarButton: React.FC<AvatarButtonProps> = ({ signedIn, user, signOut }) => {
   const [open, setOpen] = useState(false);
   const anchorEl = useRef<HTMLElement>(null);
   const menuId = 'menu-list-grow';
@@ -34,13 +21,8 @@ export const AvatarButton: React.FC<AvatarButtonProps> = ({
     setOpen(!open);
   };
 
-  const handleClose = (
-    event: React.ChangeEvent<{}> | React.MouseEvent<HTMLElement>
-  ) => {
-    if (
-      anchorEl.current &&
-      anchorEl.current.contains(event.target as HTMLElement)
-    ) {
+  const handleClose = (event: React.ChangeEvent<{}> | React.MouseEvent<HTMLElement>) => {
+    if (anchorEl.current && anchorEl.current.contains(event.target as HTMLElement)) {
       return;
     }
     setOpen(false);
@@ -48,20 +30,11 @@ export const AvatarButton: React.FC<AvatarButtonProps> = ({
 
   return (
     <React.Fragment>
-      <IconButton
-        buttonRef={anchorEl}
-        aria-owns={open ? menuId : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-      >
+      <IconButton buttonRef={anchorEl} aria-owns={open ? menuId : undefined} aria-haspopup="true" onClick={handleToggle}>
         {(() => {
           if (!signedIn || !user) return <Avatar>?</Avatar>;
-          if (user.photoURL)
-            return <Avatar src={user.photoURL} alt={user.displayName || ''} />;
-          if (user.displayName)
-            return (
-              <Avatar>{user.displayName.slice(0, 1).toUpperCase()}</Avatar>
-            );
+          if (user.photoURL) return <Avatar src={user.photoURL} alt={user.displayName || ''} />;
+          if (user.displayName) return <Avatar>{user.displayName.slice(0, 1).toUpperCase()}</Avatar>;
           return <Avatar>U</Avatar>;
         })()}
       </IconButton>
@@ -70,15 +43,14 @@ export const AvatarButton: React.FC<AvatarButtonProps> = ({
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin:
-                placement === 'bottom' ? 'center top' : 'center bottom',
+              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
             }}
           >
             <Paper id={menuId}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList>
                   <MenuItem
-                    onClick={event => {
+                    onClick={(event) => {
                       signOut();
                       handleClose(event);
                     }}

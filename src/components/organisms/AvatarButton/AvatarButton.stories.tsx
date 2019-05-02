@@ -12,8 +12,7 @@ stories.add('AvatarButton', () => {
     user: {
       displayName: 'あいうえお',
       email: 'hoge@example.com',
-      photoURL:
-        'https://pbs.twimg.com/profile_images/991207907441102848/i-xgv1sZ_bigger.jpg',
+      photoURL: 'https://pbs.twimg.com/profile_images/991207907441102848/i-xgv1sZ_bigger.jpg',
       uid: 'hogehogehoge',
     },
     signOut: action('signOut'),

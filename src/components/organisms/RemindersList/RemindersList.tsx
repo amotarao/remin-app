@@ -1,17 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React, { useCallback, useMemo, useState } from 'react';
-import {
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Checkbox,
-  Icon,
-  IconButton,
-} from '@material-ui/core';
+import { Paper, Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Icon, IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { ReminderItem } from '../../../stores/database/reminders';
 import { PaperStyle } from './styled';
@@ -25,7 +15,7 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
 
   const onCheckAllChange = useCallback(() => {
     if (selected.length < items.length) {
-      setSelected(items.map(e => e.id));
+      setSelected(items.map((e) => e.id));
       return;
     }
     setSelected([]);
@@ -35,22 +25,22 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
     (event: React.FormEvent<HTMLInputElement>) => {
       const currentId = event.currentTarget.value;
 
-      if (selected.findIndex(id => id === currentId) < 0) {
+      if (selected.findIndex((id) => id === currentId) < 0) {
         setSelected([...selected, currentId]);
         return;
       }
-      setSelected(selected.filter(id => id !== currentId));
+      setSelected(selected.filter((id) => id !== currentId));
     },
     [selected]
   );
 
   const onRowClick = useCallback(
     (event: React.MouseEvent<HTMLTableRowElement>, currentId: string) => {
-      if (selected.findIndex(id => id === currentId) < 0) {
+      if (selected.findIndex((id) => id === currentId) < 0) {
         setSelected([...selected, currentId]);
         return;
       }
-      setSelected(selected.filter(id => id !== currentId));
+      setSelected(selected.filter((id) => id !== currentId));
     },
     [selected]
   );
@@ -60,9 +50,7 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
-            indeterminate={
-              selected.length > 0 && selected.length !== items.length
-            }
+            indeterminate={selected.length > 0 && selected.length !== items.length}
             checked={items.length > 0 && selected.length === items.length}
             disabled={items.length === 0}
             onChange={onCheckAllChange}
@@ -82,14 +70,10 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
 
   const body = useMemo(
     () =>
-      items.map(item => (
-        <TableRow key={item.id} onClick={event => onRowClick(event, item.id)}>
+      items.map((item) => (
+        <TableRow key={item.id} onClick={(event) => onRowClick(event, item.id)}>
           <TableCell padding="checkbox">
-            <Checkbox
-              value={item.id}
-              checked={selected.findIndex(id => id === item.id) >= 0}
-              onChange={onCheckChange}
-            />
+            <Checkbox value={item.id} checked={selected.findIndex((id) => id === item.id) >= 0} onChange={onCheckChange} />
           </TableCell>
           <TableCell>{item.data.channel}</TableCell>
           <TableCell>{item.data.text}</TableCell>
@@ -97,13 +81,8 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
           <TableCell>{item.data.time.join(', ')}</TableCell>
           <TableCell padding="checkbox" align="center">
             <IconButton
-              component={props => (
-                <Link
-                  to={{ pathname: `/edit/${item.id}`, state: { modal: true } }}
-                  {...props}
-                />
-              )}
-              onClick={event => {
+              component={(props) => <Link to={{ pathname: `/edit/${item.id}`, state: { modal: true } }} {...props} />}
+              onClick={(event) => {
                 event.stopPropagation();
               }}
             >

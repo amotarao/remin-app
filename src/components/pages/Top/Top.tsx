@@ -12,11 +12,7 @@ export const Top: React.FC<TopProps> = ({ isLoading, signedIn, signOut }) => {
   return (
     <div>
       <header>
-        <a
-          href={`https://slack.com/oauth/authorize?scope=${encodeURIComponent(
-            slackScopes.join(',')
-          )}&client_id=${process.env.REACT_APP_SLACK_CLIENT_ID}`}
-        >
+        <a href={`https://slack.com/oauth/authorize?scope=${encodeURIComponent(slackScopes.join(','))}&client_id=${process.env.REACT_APP_SLACK_CLIENT_ID}`}>
           <img
             alt="Add to Slack"
             height="40"

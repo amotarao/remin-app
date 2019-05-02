@@ -5,9 +5,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { RemindersList, RemindersListProps } from './RemindersList';
 
 const stories = storiesOf('organisms', module);
-stories.addDecorator(story => (
-  <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
-));
+stories.addDecorator((story) => <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>);
 stories.addDecorator(withKnobs);
 
 stories.add('RemindersList', () => {

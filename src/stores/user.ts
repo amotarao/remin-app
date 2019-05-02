@@ -19,7 +19,7 @@ export class UserContainer extends Container<UserState> {
   }
 
   onAuthStateChanged = () => {
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({
           ...this.state,
