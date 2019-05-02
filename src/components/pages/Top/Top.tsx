@@ -2,15 +2,17 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import { slackScopes } from '../../../utils/slack';
+import { LoadingCircle } from '../../atoms/LoadingCircle';
 import { HeaderStyle, TitleStyle, CatchStyle } from './styled';
 
 export interface TopProps {
   isLoading: boolean;
 }
 
-export const Top: React.FC<TopProps> = () => {
+export const Top: React.FC<TopProps> = ({ isLoading }) => {
   return (
     <div>
+      <LoadingCircle isLoading={isLoading} />
       <header css={HeaderStyle}>
         <h1 css={TitleStyle}>Remin</h1>
         <p css={CatchStyle}>

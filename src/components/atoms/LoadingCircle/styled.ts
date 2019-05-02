@@ -13,7 +13,9 @@ export const ProgressWrapperStyle = css`
     bottom: 0;
     left: 0;
     width: 100vw;
-    z-index:9999 &.is-loading-enter {
+    z-index: 9999;
+
+    &.is-loading-enter {
       opacity: 0;
     }
     &.is-loading-enter-active {
