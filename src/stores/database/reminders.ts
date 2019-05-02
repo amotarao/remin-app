@@ -13,7 +13,7 @@ export interface ReminderItem {
   data: ReminderItemData;
 }
 
-interface ReminderItemData {
+export interface ReminderItemData {
   channel: string;
   text: string;
   date: string[];
@@ -66,5 +66,9 @@ export class RemindersContainer extends Container<RemindersState> {
         });
       });
     });
+  };
+
+  create = (data: ReminderItemData) => {
+    return RemindersCollection.add(data);
   };
 }
