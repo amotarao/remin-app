@@ -1,17 +1,22 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React from 'react';
 import { slackScopes } from '../../../utils/slack';
+import { HeaderStyle, TitleStyle, CatchStyle } from './styled';
 
 export interface TopProps {
   isLoading: boolean;
-  signedIn: boolean;
-  user: firebase.User | null;
-  signOut: () => void;
 }
 
-export const Top: React.FC<TopProps> = ({ isLoading, signedIn, signOut }) => {
+export const Top: React.FC<TopProps> = () => {
   return (
     <div>
-      <header>
+      <header css={HeaderStyle}>
+        <h1 css={TitleStyle}>Remin</h1>
+        <p css={CatchStyle}>
+          <span className="p1">少しだけ便利な、</span>
+          <span className="p2">リマインダーApp</span>
+        </p>
         <a href={`https://slack.com/oauth/authorize?scope=${encodeURIComponent(slackScopes.join(','))}&client_id=${process.env.REACT_APP_SLACK_CLIENT_ID}`}>
           <img
             alt="Add to Slack"
@@ -21,9 +26,6 @@ export const Top: React.FC<TopProps> = ({ isLoading, signedIn, signOut }) => {
             srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
           />
         </a>
-        <p>{isLoading ? '読み込み中' : '読み込み完了'}</p>
-        <p>{signedIn ? 'ログイン済' : 'ログインしていません'}</p>
-        <button onClick={signOut}>ログアウト</button>
       </header>
     </div>
   );
