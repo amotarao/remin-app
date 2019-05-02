@@ -9,6 +9,21 @@ const GlobalCSS = css`
     margin: 0;
     padding: 0;
   }
+
+  html {
+    font-size: 16px;
+  }
+
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+  }
+
+  img,
+  svg {
+    display: block;
+  }
 `;
 
 export const GlobalStyle: React.FC = () => <Global styles={GlobalCSS} />;
