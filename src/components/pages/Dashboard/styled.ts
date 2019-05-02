@@ -10,7 +10,7 @@ export const HeaderStyle = css`
 
 export const FabStyle = css`
   && {
-    position: absolute;
+    position: fixed;
     right: 24px;
     bottom: 24px;
   }
