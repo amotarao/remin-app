@@ -31,41 +31,39 @@ export class RemindersContainer extends Container<RemindersState> {
   }
 
   onSnapshot = () => {
+    const items: ReminderItem[] = [];
+
     RemindersCollection.onSnapshot(async (querySnapshot) => {
       await this.setState({
         ...this.state,
         isLoading: false,
       });
 
-      querySnapshot.docChanges().forEach(async ({ type, doc }) => {
+      querySnapshot.docChanges().forEach(({ type, doc }) => {
         const item = {
           id: doc.id,
           data: doc.data() as ReminderItemData,
         };
-        const index = this.state.items.findIndex((e) => e.id === item.id);
+        const index = items.findIndex((e) => e.id === item.id);
 
         switch (type) {
           case 'added':
-            await this.setState({
-              ...this.state,
-              items: [...this.state.items, item],
-            });
+            items.push(item);
             break;
           case 'modified':
-            await this.setState({
-              ...this.state,
-              items: this.state.items.splice(index, 1, item),
-            });
+            items.splice(index, 1, item);
             break;
           case 'removed':
-            await this.setState({
-              ...this.state,
-              items: this.state.items.splice(index, 1),
-            });
+            items.splice(index, 1);
             break;
           default:
             break;
         }
+
+        this.setState({
+          ...this.state,
+          items,
+        });
       });
     });
   };
