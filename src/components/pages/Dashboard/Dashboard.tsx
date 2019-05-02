@@ -6,7 +6,7 @@ import { Fab, Icon, Toolbar, AppBar, Typography } from '@material-ui/core';
 import { LoadingCircle } from '../../atoms/LoadingCircle';
 import { AvatarButtonContainer } from '../../organisms/AvatarButton';
 import { RemindersListContainer } from '../../organisms/RemindersList';
-import { FabStyle, HeaderStyle } from './styled';
+import { FabStyle, HeaderStyle, ListStyle } from './styled';
 
 export interface DashboardProps {
   isLoading: boolean;
@@ -24,7 +24,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoading }) => {
         </Toolbar>
       </AppBar>
       <AvatarButtonContainer />
-      <RemindersListContainer />
+      <RemindersListContainer css={ListStyle} />
       <Fab css={FabStyle} color="primary" aria-label="Add" component={(props) => <Link to="/create" {...props} />}>
         <Icon>add</Icon>
       </Fab>

@@ -15,3 +15,9 @@ export const FabStyle = css`
     bottom: 24px;
   }
 `;
+
+export const ListStyle = css`
+  && {
+    margin-bottom: 120px;
+  }
+`;

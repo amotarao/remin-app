@@ -7,10 +7,11 @@ import { ReminderItem } from '../../../stores/database/reminders';
 import { PaperStyle } from './styled';
 
 export interface RemindersListProps {
+  className?: string;
   items: ReminderItem[];
 }
 
-export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
+export const RemindersList: React.FC<RemindersListProps> = ({ className, items }) => {
   const [selected, setSelected] = useState<string[]>([]);
 
   const onCheckAllChange = useCallback(() => {
@@ -95,7 +96,7 @@ export const RemindersList: React.FC<RemindersListProps> = ({ items }) => {
   );
 
   return (
-    <Paper css={PaperStyle}>
+    <Paper className={className} css={PaperStyle}>
       <Table>
         <TableHead>{head}</TableHead>
         <TableBody>{body}</TableBody>
