@@ -6,12 +6,15 @@ import { Top, TopProps } from './';
 
 interface Props extends RouteComponentProps, TopProps {}
 
-const TopContainer: React.FC<Props> = () => {
+const TopContainer: React.FC<Props> = ({ history }) => {
   return (
     <Subscribe to={[UserContainer]}>
-      {(user: UserContainer) => (
-        <Top {...{ ...user.state, signOut: user.signOut }} />
-      )}
+      {(user: UserContainer) => {
+        if (!user.state.isLoading && user.state.signedIn) {
+          history.replace('/dashboard');
+        }
+        return <Top {...{ ...user.state, signOut: user.signOut }} />;
+      }}
     </Subscribe>
   );
 };
