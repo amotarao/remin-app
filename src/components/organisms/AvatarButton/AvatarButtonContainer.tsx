@@ -8,7 +8,7 @@ export const AvatarButtonContainer: React.FC<
 > = () => {
   return (
     <Subscribe to={[UserContainer]}>
-      {(user: UserContainer) => <AvatarButton {...user.state} />}
+      {(user: UserContainer) => <AvatarButton {...user.state} {...user} />}
     </Subscribe>
   );
 };

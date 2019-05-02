@@ -1,6 +1,14 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
+import React, { useRef, useState } from 'react';
+import {
+  Avatar,
+  IconButton,
+  Popper,
+  Grow,
+  Paper,
+  ClickAwayListener,
+  MenuList,
+  MenuItem,
+} from '@material-ui/core';
 
 export interface AvatarButtonProps {
   signedIn: boolean;
@@ -10,15 +18,42 @@ export interface AvatarButtonProps {
     photoURL: string | null;
     uid: string;
   } | null;
+  signOut: () => void;
 }
 
 export const AvatarButton: React.FC<AvatarButtonProps> = ({
   signedIn,
   user,
+  signOut,
 }) => {
+  const [open, setOpen] = useState(false);
+  const anchorEl = useRef<HTMLElement>(null);
+  const menuId = 'menu-list-grow';
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
+  const handleClose = (
+    event: React.ChangeEvent<{}> | React.MouseEvent<HTMLElement>
+  ) => {
+    if (
+      anchorEl.current &&
+      anchorEl.current.contains(event.target as HTMLElement)
+    ) {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <React.Fragment>
-      <IconButton>
+      <IconButton
+        buttonRef={anchorEl}
+        aria-owns={open ? menuId : undefined}
+        aria-haspopup="true"
+        onClick={handleToggle}
+      >
         {(() => {
           if (!signedIn || !user) return <Avatar>?</Avatar>;
           if (user.photoURL)
@@ -30,6 +65,32 @@ export const AvatarButton: React.FC<AvatarButtonProps> = ({
           return <Avatar>U</Avatar>;
         })()}
       </IconButton>
+      <Popper open={open} anchorEl={anchorEl.current} transition disablePortal>
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
+          >
+            <Paper id={menuId}>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList>
+                  <MenuItem
+                    onClick={event => {
+                      signOut();
+                      handleClose(event);
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </React.Fragment>
   );
 };
