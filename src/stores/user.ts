@@ -19,16 +19,16 @@ export class UserContainer extends Container<UserState> {
   }
 
   onAuthStateChanged = () => {
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(async (user) => {
       if (user) {
-        this.setState({
+        await this.setState({
           ...this.state,
           isLoading: false,
           signedIn: true,
           user,
         });
       } else {
-        this.setState({
+        await this.setState({
           ...this.state,
           isLoading: false,
           signedIn: false,

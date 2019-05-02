@@ -31,13 +31,13 @@ export class RemindersContainer extends Container<RemindersState> {
   }
 
   onSnapshot = () => {
-    RemindersCollection.onSnapshot((querySnapshot) => {
-      this.setState({
+    RemindersCollection.onSnapshot(async (querySnapshot) => {
+      await this.setState({
         ...this.state,
-        isLoading: true,
+        isLoading: false,
       });
 
-      querySnapshot.docChanges().forEach(({ type, doc }) => {
+      querySnapshot.docChanges().forEach(async ({ type, doc }) => {
         const item = {
           id: doc.id,
           data: doc.data() as ReminderItemData,
@@ -46,19 +46,19 @@ export class RemindersContainer extends Container<RemindersState> {
 
         switch (type) {
           case 'added':
-            this.setState({
+            await this.setState({
               ...this.state,
               items: [...this.state.items, item],
             });
             break;
           case 'modified':
-            this.setState({
+            await this.setState({
               ...this.state,
               items: this.state.items.splice(index, 1, item),
             });
             break;
           case 'removed':
-            this.setState({
+            await this.setState({
               ...this.state,
               items: this.state.items.splice(index, 1),
             });
