@@ -12,7 +12,7 @@ export const Dashboard: React.FC<DashboardProps> = () => {
   return (
     <div>
       <RemindersListContainer />
-      <Fab css={FabStyle} color="primary" aria-label="Add" component={(props) => <Link to={{ pathname: '/create', state: { modal: true } }} {...props} />}>
+      <Fab css={FabStyle} color="primary" aria-label="Add" component={(props) => <Link to="/create" {...props} />}>
         <Icon>add</Icon>
       </Fab>
     </div>
