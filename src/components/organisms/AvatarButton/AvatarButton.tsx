@@ -1,5 +1,8 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React, { useRef, useState } from 'react';
 import { Avatar, IconButton, Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core';
+import { ButtonStyle } from './styled';
 
 export interface AvatarButtonProps {
   signedIn: boolean;
@@ -30,7 +33,7 @@ export const AvatarButton: React.FC<AvatarButtonProps> = ({ signedIn, user, sign
 
   return (
     <React.Fragment>
-      <IconButton buttonRef={anchorEl} aria-owns={open ? menuId : undefined} aria-haspopup="true" onClick={handleToggle}>
+      <IconButton css={ButtonStyle} buttonRef={anchorEl} aria-owns={open ? menuId : undefined} aria-haspopup="true" onClick={handleToggle}>
         {(() => {
           if (!signedIn || !user) return <Avatar>?</Avatar>;
           if (user.photoURL) return <Avatar src={user.photoURL} alt={user.displayName || ''} />;
