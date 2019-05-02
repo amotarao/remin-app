@@ -18,7 +18,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoading }) => {
       <LoadingCircle isLoading={isLoading} />
       <AppBar css={HeaderStyle} position="static" color="default">
         <Toolbar>
-          <Typography variant="h6" color="inherit">
+          <Typography variant="h6" color="inherit" component="h1">
             Dashboard
           </Typography>
         </Toolbar>
