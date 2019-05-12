@@ -18,7 +18,7 @@ const CreateContainer: React.FC<Props> = ({ history, ...props }) => {
           history.replace('/dashboard');
         };
         const isLoading = user.state.isLoading || reminders.state.isLoading;
-        return <Create {...props} {...reminders} isLoading={isLoading} toDashboard={toDashboard} />;
+        return <Create {...props} {...reminders} isLoading={isLoading} success={toDashboard} />;
       }}
     </Subscribe>
   );

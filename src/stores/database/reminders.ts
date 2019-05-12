@@ -1,7 +1,7 @@
 import { Container } from 'unstated';
 import { firestore } from '../../modules/firebase';
 
-const RemindersCollection = firestore.collection('reminders');
+const remindersCollection = firestore.collection('reminders');
 
 export interface RemindersState {
   isLoading: boolean;
@@ -33,7 +33,7 @@ export class RemindersContainer extends Container<RemindersState> {
   onSnapshot = () => {
     const items: ReminderItem[] = [];
 
-    RemindersCollection.onSnapshot(async (querySnapshot) => {
+    remindersCollection.onSnapshot(async (querySnapshot) => {
       await this.setState({
         ...this.state,
         isLoading: false,
@@ -69,6 +69,6 @@ export class RemindersContainer extends Container<RemindersState> {
   };
 
   create = (data: ReminderItemData) => {
-    return RemindersCollection.add(data);
+    return remindersCollection.add(data);
   };
 }

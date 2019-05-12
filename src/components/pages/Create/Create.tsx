@@ -8,11 +8,11 @@ import { InputWrapperStyle, InputStyle, SaveIconStyle, PaperStyle, ControlStyle,
 export interface CreateProps {
   className?: string;
   isLoading: boolean;
-  toDashboard: () => void;
+  success: () => void;
   create: (data: ReminderItemData) => Promise<firebase.firestore.DocumentReference>;
 }
 
-export const Create: React.FC<CreateProps> = ({ className, toDashboard, create }) => {
+export const Create: React.FC<CreateProps> = ({ className, success, create }) => {
   const now = new Date();
 
   const [text, setText] = useState<string>('');
@@ -27,7 +27,7 @@ export const Create: React.FC<CreateProps> = ({ className, toDashboard, create }
     setSubmitDisabled(true);
     create({ text, channel, date: [date], time: [time] })
       .then(() => {
-        toDashboard();
+        success();
       })
       .catch(() => {
         setSubmitDisabled(false);
